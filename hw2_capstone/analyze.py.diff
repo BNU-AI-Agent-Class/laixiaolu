@@ -1,0 +1,12 @@
+--- notes_app/analyze.py.before
++++ notes_app/analyze.py
+@@ -15,7 +15,8 @@
+     """生成一段统计摘要。"""
+     notes = all_notes()
+     counts = tag_counts()
+-    # BUG: 当没有任何带标签的笔记时,counts 是空列表,counts[0] 会抛 IndexError。
++    if not counts:
++        return f"共有 {len(notes)} 条笔记。\n还没有任何标签。"
+     top_tag = counts[0][0]
+     lines = [
+         f"共有 {len(notes)} 条笔记。",
